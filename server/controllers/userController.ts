@@ -14,7 +14,7 @@ const userController = {
     try {
       // Compares req.body password with the User document's password (returns boolean)
       const user = [username];
-      const loginQuery:string = 'SELECT * FROM accounts WHERE username = $1';
+      const loginQuery:string = 'SELECT * FROM accounts WHERE username = $1;';
       const foundUser = await pool.query(loginQuery, user);
       // console.log('user password: ', foundUser.rows[0].password);
       const result = await bcrypt.compare(password, foundUser.rows[0].password);
@@ -61,7 +61,7 @@ const userController = {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     //adding user into the accounts table
-    const createUser: string = `INSERT INTO accounts (user_id, username, password) VALUES (DEFAULT, $1, $2) returning user_id`;
+    const createUser: string = `INSERT INTO accounts (user_id, username, password) VALUES (DEFAULT, $1, $2) returning user_id;`;
     const values = [ username, hashedPassword ]
     await pool.query(createUser, values);
     //const newUser = 
