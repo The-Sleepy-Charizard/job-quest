@@ -9,7 +9,7 @@ const Dashboard = ({ username }: DashProp) => {
   const [jobs, setJobs] = useState([]);
   // fetch jobs when Navbar filter has changed
   useEffect(() => {
-    const endpoint = `/jobs?username=${username}&filter=${filter}`;
+    const endpoint = `/job?username=${username}&filter=${filter}`;
     const fetchData = async () => {
       const response = await fetch(endpoint);
       const newJobs = await response.json();
