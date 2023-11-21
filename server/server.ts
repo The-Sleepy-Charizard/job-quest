@@ -1,7 +1,4 @@
-// import path from 'path';
 import 'dotenv/config';
-// import cookieParser from 'cookie-parser';
-// import cors from 'cors';
 import { userRouter } from './routes/userRouter.js';
 import { jobRouter } from './routes/jobRouter.js'
 import { fileURLToPath } from 'url';
@@ -15,8 +12,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(express.json());
-// app.use(cookieParser());
-// app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(join(__dirname, '../dist')));
 
