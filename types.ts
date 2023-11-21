@@ -16,3 +16,15 @@ export type NavProp = {
 export type DashProp = {
   username: string
 }
+
+export type EntryState = {
+  position: string;
+  company: string;
+  salary: string;
+  location: string;
+  section: string;
+  saveDate: string;
+  applyDate: string;
+  followDate: string;
+  interest: string;
+}

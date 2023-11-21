@@ -41,8 +41,8 @@ const Login = ({ username, setUsername }: UserProp) => {
     }
   };
 
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  switch (e.target.name) {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    switch (e.target.name) {
     case 'username':
       setUsername(e.target.value);
       break;
@@ -52,8 +52,8 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     case 'confirmPassword':
       setConfirmPassword(e.target.value);
       break;
+    }
   }
-}
   return (
     <div className='flex flex-col space-y-4 items-center'>
       <img className='w-2/4' src={`https://images-ext-1.discordapp.net/external/QySc1eXuDpXIA-Y5S3sG-eIgmN18OuQElpGdE8t5eFI/https/i.pinimg.com/originals/10/32/df/1032df35dd25347749e10e44453c9dde.gif`} />

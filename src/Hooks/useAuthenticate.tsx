@@ -2,26 +2,26 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const useAuthenticate = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const verifyUser = async () => {
-        const endPoint = `/user`
-        try {
-            const res = await fetch(endPoint);
-            if (res.status === 401) {
-                return navigate('/')
-            }
-            if (!res.ok) {
-                throw Error('failed to authenticate user')
-            }
-        } catch (error) {
-            console.error(error)
-        }
+  const verifyUser = async () => {
+    const endPoint = `/user`
+    try {
+      const res = await fetch(endPoint);
+      if (res.status === 401) {
+        return navigate('/')
+      }
+      if (!res.ok) {
+        throw Error('failed to authenticate user')
+      }
+    } catch (error) {
+      console.error(error)
     }
+  }
 
-    useEffect(() => {verifyUser()})
+  useEffect(() => {verifyUser()})
 
-    return;
+  return;
 }
 
 export default useAuthenticate;
