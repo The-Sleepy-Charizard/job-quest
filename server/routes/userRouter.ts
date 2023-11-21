@@ -1,8 +1,8 @@
-import express, {Request, Reponse} from 'express';
-import userController from '../controllers/userController';
+import express, {Request, Response} from 'express';
+import userController from '../controllers/userController.ts';
 const router = express.Router();
 
-router.post('/signup', userController.signup, (req: Request, res: Response) => {
+router.post('/signup', userController.signup, (_req: Request, res: Response) => {
   return res.status(201).json({ message: 'registration successful' });
 })
 

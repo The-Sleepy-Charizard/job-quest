@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import db from '../models/jobQuestModel';
+import { pool } from '../models/jobQuestModel.ts';
 import { Request, Response, NextFunction} from 'express'
 const userController = {
 
@@ -66,18 +66,18 @@ const userController = {
   
   try {
     // Creating table of user if userlist is not exist at the beginning
-    await db.query(`CREATE TABLE IF NOT EXIST accounts ( 
-      user_id SERIAL PRIMARY KEY ,
-      username VARCHAR(20) UNIQUE NOT NULL,
-      password VARCHAR(20) NOT NULL,
-     )`);
+    // await pool.query(`CREATE TABLE IF NOT EXISTS accounts ( 
+    //   user_id SERIAL PRIMARY KEY ,
+    //   username VARCHAR(20) UNIQUE NOT NULL,
+    //   password VARCHAR(20) NOT NULL,
+    //  )`);
     // Hashes password using Bcrypt
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     //adding user into the accounts table
     const createUser: string = `INSERT INTO accounts (user_id, username, password) VALUES (DEFAULT, $1, $2)`;
     const values = [ username, hashedPassword ]
-    const newUser = await db.query(createUser, values);
+    const newUser = await pool.query(createUser, values);
     // Saves new user object to res.locals.user
     res.locals.newUser = newUser;
     return next();
