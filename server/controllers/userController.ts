@@ -28,30 +28,30 @@ const userController = {
       } else {
         return next();
       }
-  }
-     catch (err) {
+    }
+    catch (err) {
       return next({
         log: `userController.login: ERROR: ${err}`,
         message: { err: 'Something went wrong! Whoops!' },
         status: 500,
       });
     }
-},
+  },
 
 
-//   Signup Controller
+  //   Signup Controller
   signup: async (req: Request, res: Response, next: NextFunction) => {
-  const { username, password } = req.body;
-  // Confirms req.body includes username and password
-  if (!username || !password) {
-    return next({
-      log: 'userController.signup: ERROR: missing username or password',
-      status: 400,
-      message: { err: 'Username and password required' },
-    });
-  }
+    const { username, password } = req.body;
+    // Confirms req.body includes username and password
+    if (!username || !password) {
+      return next({
+        log: 'userController.signup: ERROR: missing username or password',
+        status: 400,
+        message: { err: 'Username and password required' },
+      });
+    }
   
-  try {
+    try {
     // Creating table of user if userlist is not exist at the beginning
     // await pool.query(`CREATE TABLE IF NOT EXISTS accounts ( 
     //   user_id SERIAL PRIMARY KEY ,
@@ -59,23 +59,23 @@ const userController = {
     //   password VARCHAR NOT NULL,
     //  )`);
     // Hashes password using Bcrypt
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
-    //adding user into the accounts table
-    const createUser: string = `INSERT INTO accounts (user_id, username, password) VALUES (DEFAULT, $1, $2) returning user_id;`;
-    const values = [ username, hashedPassword ]
-    const newUser = await pool.query(createUser, values);
-    console.log(newUser.rows[0])
-    res.locals.user = newUser.rows[0];
-    return next();
-  } catch (err) {
-    return next({
-      log: `userController.signup: ERROR: ${err}`,
-      message: { err: 'Username already exists' },
-      status: 500,
-    });
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(password, salt);
+      //adding user into the accounts table
+      const createUser: string = `INSERT INTO accounts (user_id, username, password) VALUES (DEFAULT, $1, $2) returning user_id;`;
+      const values = [ username, hashedPassword ]
+      const newUser = await pool.query(createUser, values);
+      // console.log(newUser.rows[0])
+      res.locals.user = newUser.rows[0];
+      return next();
+    } catch (err) {
+      return next({
+        log: `userController.signup: ERROR: ${err}`,
+        message: { err: 'Username already exists' },
+        status: 500,
+      });
+    }
   }
-}
 };
 
 export default userController;

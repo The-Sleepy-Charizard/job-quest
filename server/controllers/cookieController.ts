@@ -9,9 +9,9 @@ const cookieController = {
       return next()
     } catch (err) {
       return next({
-      log: `cookieController.createCookie: ${err}`,
-      message: { err: 'error in creating cookie' },
-      status: 400,
+        log: `cookieController.createCookie: ${err}`,
+        message: { err: 'error in creating cookie' },
+        status: 400,
       });
     }
   },

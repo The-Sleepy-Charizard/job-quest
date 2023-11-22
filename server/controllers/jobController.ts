@@ -30,7 +30,7 @@ const jobController = {
   },
 
   postJob: async (req: Request, _res: Response, next: NextFunction) => {
-     const {
+    const {
       applyDate,
       username,
       company,
@@ -41,7 +41,7 @@ const jobController = {
       salary,
       saveDate,
       section,
-      } = req.body;
+    } = req.body;
     const lowerCaseSection = section.toLowerCase();
     const values:string[] = [
       applyDate,
@@ -86,42 +86,39 @@ const jobController = {
     //  } = req.body;
     const { username } = req.body;
    
-  //  const values:string[] = [
-  //    job_id,
-  //    applyDate,
-  //    username,
-  //    company,
-  //    followDate,
-  //    interest,
-  //    location,
-  //    position,
-  //    salary,
-  //    saveDate,
-  //    section,
-  //  ];
+    //  const values:string[] = [
+    //    job_id,
+    //    applyDate,
+    //    username,
+    //    company,
+    //    followDate,
+    //    interest,
+    //    location,
+    //    position,
+    //    salary,
+    //    saveDate,
+    //    section,
+    //  ];
    
   
-   try {
-     const jobDataQuery = `SELECT job_id FROM joblist WHERE username = $1;`;
-     const jobFromDB = await pool.query(jobDataQuery, [username]);
-     console.log(jobFromDB);
+    try {
+      const jobDataQuery = `SELECT job_id FROM joblist WHERE username = $1;`;
+      const jobFromDB = await pool.query(jobDataQuery, [username]);
+      console.log(jobFromDB);
      
-    //  const jobUpdateQuery = `UPDATE joblist (job_id, apply_date, username, company, follow_date, interest, location, position, salary, save_date, section) 
-    //  VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
-    //  await pool.query(jobUpdateQuery, values);
+      //  const jobUpdateQuery = `UPDATE joblist (job_id, apply_date, username, company, follow_date, interest, location, position, salary, save_date, section) 
+      //  VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+      //  await pool.query(jobUpdateQuery, values);
       
      
-   } catch(err) {
-     return next({
-       log: `jobController.postJob: ${err}`,
-       message: { err: 'Failed to add job' },
-       status: 400,
-     });
-   } 
- },
-
-
-
+    } catch(err) {
+      return next({
+        log: `jobController.postJob: ${err}`,
+        message: { err: 'Failed to add job' },
+        status: 400,
+      });
+    } 
+  },
 };
 
 export default jobController

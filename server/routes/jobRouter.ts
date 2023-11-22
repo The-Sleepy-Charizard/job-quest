@@ -16,7 +16,7 @@ router.post('/', jobController.postJob, (_req: Request, res: Response) => {
 });
 
 router.patch('/', jobController.updateJob, (_req: Request, res: Response) => {
-    return res.status(202).json({ message: 'Job Updated Successully ' });
+  return res.status(202).json({ message: 'Job Updated Successully ' });
 })
 
 // router.delete('/', jobController.deleteJob, (_req: Request, res: Response) => {

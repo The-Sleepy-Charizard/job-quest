@@ -25,6 +25,6 @@
     "esm": true,
     "compiler": "typescript"
   },
-  "include": ["src", "server"],
+  "include": ["./**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

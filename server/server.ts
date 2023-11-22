@@ -4,7 +4,7 @@ import { jobRouter } from './routes/jobRouter.js'
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { ServerError } from '../types.js';
-import express, { Request, Response, NextFunction } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cookieParser from 'cookie-parser'
 
 const app = express();
