@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Job from "./Job.tsx";
-import { EntryState } from '../../types.ts'
+import { EntryState, JobContainerProps, JobProps } from '../../types.ts'
 import useSessionInfo from "../Hooks/useSessionInfo.tsx";
 
-const JobContainer = ({ jobs }) => {
+const JobContainer = ({ jobs }: JobContainerProps) => {
   const initialEntry: EntryState = {  
     position: '',
     company: '',
@@ -16,9 +16,13 @@ const JobContainer = ({ jobs }) => {
     interest: '',
   }
 
-  const [ interest, setInterest ] = useState(Array(5).fill(false))
-  const [ newEntry, setNewEntry ] = useState(initialEntry)
+  const [ interest, setInterest ] = useState(Array(5).fill(false));
+  const [ newEntry, setNewEntry ] = useState(initialEntry);
   useSessionInfo('newEntry', setNewEntry);
+
+  useEffect(() => {
+    setInterest(Array(5).fill(false).fill(true, 0, Number(newEntry.interest)))
+  },[newEntry.interest]);
 
   const updateState = (category: keyof EntryState, value: string): void => {
     setNewEntry((prevState) => {
@@ -39,13 +43,30 @@ const JobContainer = ({ jobs }) => {
     setNewEntry(initialEntry)
   }
 
+  const submitEntry = async (endPoint: string) => {
+    const username = localStorage.getItem('username');
+    try {
+      const res = await fetch(endPoint, {
+        method: 'POST',
+        body: JSON.stringify({...newEntry, username: username}),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!res.ok) {
+        throw new Error('failed to post new job app')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <main>
       <button onClick={resetEntry}>reset</button>
       <table className='border-2 border-slate-400 p-2'>
         <thead>
           <tr>
-            <th><input type='checkbox'/></th>
             <th>Job Position</th>
             <th>Company</th>
             <th>Max Salary</th>
@@ -58,14 +79,10 @@ const JobContainer = ({ jobs }) => {
           </tr>
         </thead>
         <tbody>
-          <Job />
-          <Job />
-          <Job />
-          <Job />
+          {jobs.map((job, index) => {
+            return <Job job={job} key={index}/>
+          })}
           <tr>
-            <td>
-              <button type='button' className='text-white bg-green-400 w-6'>+</button>
-            </td>
             <td><input value={newEntry.position} onChange={(e) => {updateState('position', e.target.value)}} type='text' placeholder='Job Position'/></td>
             <td><input value={newEntry.company} onChange={(e) => {updateState('company', e.target.value)}} type='text' placeholder='Company'/></td>
             <td><input value={newEntry.salary} onChange={(e) => {updateState('salary', e.target.value)}} type='text' placeholder='Max Salary'/></td>
@@ -87,6 +104,9 @@ const JobContainer = ({ jobs }) => {
               {interest.map((_, index) => {
                 return <input type='radio' checked={interest[index]} onClick={() => updateInterest(index)}/>
               })}
+            </td>
+            <td>
+              <button type='button' onClick={() => submitEntry('/job')} className='text-white bg-green-400 w-10 rounded-md'>ADD</button>
             </td>
           </tr>
         </tbody>

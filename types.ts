@@ -27,4 +27,14 @@ export type EntryState = {
   applyDate: string;
   followDate: string;
   interest: string;
+  job_id?: number;
+  username?: string;
 }
+
+export type JobProps = {
+    job: EntryState
+}
+
+export type JobContainerProps = {
+    jobs: JobProps[];
+  };

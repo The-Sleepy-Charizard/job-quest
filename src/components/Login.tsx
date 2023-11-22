@@ -36,7 +36,8 @@ const Login = ({ username, setUsername }: UserProp) => {
         throw new Error('failed to fetch at auth');
       }
       if (res.status === 201 || res.status === 202) {
-        navigate('/dashboard');
+        localStorage.setItem('username', `${username}`)
+        return navigate('/dashboard');
       }
     }
   };

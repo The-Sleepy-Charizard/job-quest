@@ -5,7 +5,7 @@ const useAuthenticate = () => {
   const navigate = useNavigate();
 
   const verifyUser = async () => {
-    const endPoint = `/user`
+    const endPoint = `/user/verify`
     try {
       const res = await fetch(endPoint);
       if (res.status === 401) {
