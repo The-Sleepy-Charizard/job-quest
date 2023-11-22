@@ -31,8 +31,12 @@ Job Quest is a web app designed to simplify the job-hunting process through a ma
 
 In the future, we plan to introduce the following enhancements:
 
-- Advance Updates functionality for an application.
 - Implement an advanced filter for jobs for more categories.
+- Oauth 2.0
+- Social media functionality (share jobs with friends)
+- Jobs API for searching for new job postings
+- Integration/end-to-end Testing
+
 
 ## Technologies Used
 
