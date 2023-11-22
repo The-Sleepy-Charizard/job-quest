@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar.tsx';
 import JobContainer from '../components/JobContainer.tsx';
 import { useState, useEffect } from 'react';
 import { DashProp } from '../../types.ts';
-
+import '../App.css';
 const Dashboard = ({ username }: DashProp) => {
   const [filter, setFilter] = useState('bookmarked');
   const [jobs, setJobs] = useState([]);
@@ -19,7 +19,7 @@ const Dashboard = ({ username }: DashProp) => {
   }, [filter, username]);
   useAuthenticate();
   return (
-    <div>
+    <div className='appContainer'>
       <Navbar setFilter={setFilter} />
       <JobContainer jobs={jobs} />
     </div>
