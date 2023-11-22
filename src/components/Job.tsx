@@ -11,10 +11,6 @@ const Job = ({ job, submitEntry, updateState }: JobProps) => {
 
   return (
     <tr>
-      <td>{jobState.position}</td>
-      <td>{jobState.company}</td>
-      <td>{jobState.salary}</td>
-      <td>{jobState.location}</td>
       <td><input value={jobState.position} onChange={(e) => {updateState('position', e.target.value, setJobState)}} type='text' placeholder='Job Position'/></td>
       <td><input value={jobState.company} onChange={(e) => {updateState('company', e.target.value, setJobState)}} type='text' placeholder='Company'/></td>
       <td><input value={jobState.salary} onChange={(e) => {updateState('salary', e.target.value, setJobState)}} type='text' placeholder='Max Salary'/></td>
