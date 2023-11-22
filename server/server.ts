@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { ServerError } from '../types.js';
 import express, { Request, Response, NextFunction } from 'express';
+import cookieParser from 'cookie-parser'
 
 const app = express();
 const PORT = process.env.PORT || 3030;
@@ -12,6 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(join(__dirname, '../dist')));
 

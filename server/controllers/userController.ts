@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { pool } from '../models/jobQuestModel.ts';
 import { Request, Response, NextFunction} from 'express'
 const userController = {
-  login: async (req: Request, _res: Response, next: NextFunction) => {
+  login: async (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
     if (!username || !password) {
       return next({
@@ -16,6 +16,7 @@ const userController = {
       const user = [username];
       const loginQuery:string = 'SELECT * FROM accounts WHERE username = $1;';
       const foundUser = await pool.query(loginQuery, user);
+      res.locals.user = foundUser.rows[0]
       // console.log('user password: ', foundUser.rows[0].password);
       const result = await bcrypt.compare(password, foundUser.rows[0].password);
       if (!result) {
@@ -39,7 +40,7 @@ const userController = {
 
 
 //   Signup Controller
-  signup: async (req: Request, _res: Response, next: NextFunction) => {
+  signup: async (req: Request, res: Response, next: NextFunction) => {
   const { username, password } = req.body;
   // Confirms req.body includes username and password
   if (!username || !password) {
@@ -63,10 +64,9 @@ const userController = {
     //adding user into the accounts table
     const createUser: string = `INSERT INTO accounts (user_id, username, password) VALUES (DEFAULT, $1, $2) returning user_id;`;
     const values = [ username, hashedPassword ]
-    await pool.query(createUser, values);
-    //const newUser = 
-    // console.log('newUser: ', newUser.rows[0].user_id);
-    // res.locals.newUser = newUser;
+    const newUser = await pool.query(createUser, values);
+    console.log(newUser.rows[0])
+    res.locals.user = newUser.rows[0];
     return next();
   } catch (err) {
     return next({
