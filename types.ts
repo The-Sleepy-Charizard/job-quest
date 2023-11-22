@@ -23,12 +23,15 @@ export type EntryState = {
   salary: string;
   location: string;
   section: string;
-  saveDate: string;
-  applyDate: string;
-  followDate: string;
+  saveDate: string | undefined;
+  applyDate: string | undefined;
+  followDate: string | undefined;
   interest: string;
   job_id?: number;
   username?: string;
+  save_date?: string;
+  apply_date?: string;
+  follow_date?: string;
 }
 
 export type EntryStateWithoutOptionalProps = Omit<EntryState, 'job_id' | 'username'>;

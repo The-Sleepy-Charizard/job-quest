@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import { JobProps } from "../../types";
 
 const Job = ({ job, submitEntry, updateState }: JobProps) => {
+
   const [ jobState, setJobState ] = useState(job);
   const [ currInterest, setCurrInterest ] = useState(Array(5).fill(false));
 
   useEffect(() => {
     setCurrInterest(Array(5).fill(false).fill(true, 0, Number(jobState.interest)))
-  },[jobState.interest]);
+    jobState.saveDate = jobState.save_date;
+    jobState.applyDate = jobState.apply_date;
+    jobState.followDate = jobState.follow_date;
+  },[jobState.interest, jobState]);
 
   return (
     <tr>
@@ -42,6 +46,7 @@ const Job = ({ job, submitEntry, updateState }: JobProps) => {
             saveDate: e.target.value
           }
           submitEntry('/job', body, 'PATCH');
+          updateState('saveDate', e.target.value, setJobState)
         }
       }} type='date'/></td>
       <td><input value={jobState.applyDate} onChange={(e) => {
@@ -52,6 +57,7 @@ const Job = ({ job, submitEntry, updateState }: JobProps) => {
             applyDate: e.target.value
           }
           submitEntry('/job', body, 'PATCH');
+          updateState('applyDate', e.target.value, setJobState)
         }
       }} type='date'/></td>
       <td><input value={jobState.followDate} onChange={(e) => {
@@ -62,6 +68,7 @@ const Job = ({ job, submitEntry, updateState }: JobProps) => {
             followDate: e.target.value
           }
           submitEntry('/job', body, 'PATCH');
+          updateState('followDate', e.target.value, setJobState)
         }
       }} type='date'/></td>
       <td className='flex items-center space-x-2'>
@@ -84,7 +91,11 @@ const Job = ({ job, submitEntry, updateState }: JobProps) => {
         <button type='button' onClick={() => submitEntry('/job', jobState, 'PUT')} className='text-white bg-green-400 w-14 rounded-md'>EDIT</button>
       </td>
       <td>
-        <button type='button' onClick={() => submitEntry('/job', { job_id: jobState.job_id }, 'DELETE')} className='text-white bg-red-400 w-10 rounded-md'>X</button>
+        <button type='button' onClick={() => {
+
+          submitEntry('/job', { job_id: jobState.job_id }, 'DELETE')
+          
+        }} className='text-white bg-red-400 w-10 rounded-md'>X</button>
       </td>
     </tr>
   )
