@@ -92,9 +92,7 @@ const Job = ({ job, submitEntry, updateState }: JobProps) => {
       </td>
       <td>
         <button type='button' onClick={() => {
-
           submitEntry('/job', { job_id: jobState.job_id }, 'DELETE')
-          
         }} className='text-white bg-red-400 w-10 rounded-md'>X</button>
       </td>
     </tr>
