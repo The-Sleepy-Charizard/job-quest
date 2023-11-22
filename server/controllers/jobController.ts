@@ -31,6 +31,7 @@ const jobController = {
   },
 
   postJob: async (req: Request, _res: Response, next: NextFunction) => {
+    console.log('req.body in post job: ', req.body)
     const {
       applyDate,
       username,
@@ -60,7 +61,8 @@ const jobController = {
     try {
       const jobPostQuery = `INSERT INTO joblist (job_id, apply_date, username, company, follow_date, interest, location, position, salary, save_date, section) 
       VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
-      await pool.query(jobPostQuery, values);
+      const allJobs = await pool.query(jobPostQuery, values);
+      console.log('all jobs: ', allJobs.rows)
       return next();
     } catch (err) {
       return next({
