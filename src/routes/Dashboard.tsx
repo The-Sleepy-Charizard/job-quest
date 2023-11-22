@@ -16,7 +16,7 @@ const Dashboard = ({ username }: DashProp) => {
       setJobs(newJobs);
     };
     fetchData();
-  }, [filter]);
+  }, [filter, username]);
   useAuthenticate();
   return (
     <div>

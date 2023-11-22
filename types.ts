@@ -31,10 +31,14 @@ export type EntryState = {
   username?: string;
 }
 
+export type EntryStateWithoutOptionalProps = Omit<EntryState, 'job_id' | 'username'>;
+
 export type JobProps = {
-    job: EntryState
+    job: EntryState;
+    submitEntry: (endPoint: string, body: object, method: string) => Promise<void>;
+    updateState: (category: keyof EntryStateWithoutOptionalProps, value: string, setterFunc: (value: React.SetStateAction<EntryState>) => void) => void
 }
 
 export type JobContainerProps = {
-    jobs: JobProps[];
-  };
+    jobs: EntryState[];
+};
