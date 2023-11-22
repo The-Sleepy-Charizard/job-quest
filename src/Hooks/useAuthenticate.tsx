@@ -5,7 +5,8 @@ const useAuthenticate = () => {
   const navigate = useNavigate();
 
   const verifyUser = async () => {
-    const endPoint = `/user/verify`
+    const username = localStorage.getItem('username')
+    const endPoint = `/user/verify?username=${username}`
     try {
       const res = await fetch(endPoint);
       if (res.status === 401) {
