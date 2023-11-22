@@ -1,16 +1,16 @@
 # Job Quest
 
-Job Quest is a web app designed to simplify the job hunting process through a management system. It helps users improve their job applications management by providing an easy-to-use platform for creating, managing current/future jobs.
+Job Quest is a web app designed to simplify the job-hunting process through a management system. It helps users improve their job application management by providing an easy-to-use platform for creating, and managing current/future jobs.
 
 ## Features
 
 ### User Sign-Up and Login
 - Easily create a user profile to personalize your experience.
-- Secure authentication ensures your private informations are only accessible to you.
+- Secure authentication ensures your private information is only accessible to you.
 
 ### Applications Management
-- Create job app with ease.
-- Organize your job with filters for many catergories (aplly date, applications status).
+- Create a job application with ease (company, location, position, salary, job post date, status)
+- Organize your job with filters for many categories (application date, status).
 
 
 ## Front End
@@ -23,7 +23,7 @@ Job Quest is a web app designed to simplify the job hunting process through a ma
 ## Back End
 
 - Powered by **Node.js** and **Express** for robust server-side functionality.
-- Data storage and retrieval are handled by **PostgresSQL** utilizing relational feature.
+- Data storage and retrieval are handled by **PostgresSQL** utilizing relational features.
 - **TypeScript** for strict type checking preventing silence error server processing data. 
 
 
@@ -32,7 +32,7 @@ Job Quest is a web app designed to simplify the job hunting process through a ma
 In the future, we plan to introduce the following enhancements:
 
 - Advance Updates functionality for an application.
-- Implement a advance filter for jobs for more catergories.
+- Implement an advanced filter for jobs for more categories.
 
 ## Technologies Used
 
@@ -54,6 +54,6 @@ In the future, we plan to introduce the following enhancements:
 
  **Step 1**. Clone repo to code editor
 
- **Step 2**. run npm install to install all the requie dependencies
+ **Step 2**. run npm install to install all the required dependencies
 
- **Step 3**. start the project with **npm run dev**
+ **Step 3**. start the project with `npm run dev`
